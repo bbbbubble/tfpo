@@ -1,0 +1,23 @@
+[
+  {
+    "text": "Reasoning tokens determine whether an explanation is helpful and well justified.",
+    "startMs": 50,
+    "endMs": 5231,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Final answers, option letters, schema keys, and code fragments often need likelihood anchoring to remain stable and parseable.",
+    "startMs": 5231,
+    "endMs": 13891,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Applying one sequence-level preference signal everywhere can make these roles interfere.",
+    "startMs": 13891,
+    "endMs": 19368,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

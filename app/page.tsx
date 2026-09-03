@@ -1,4 +1,4 @@
-import { Download, ExternalLink, FileText, Play } from 'lucide-react';
+import { Code2, Download, FileText, Play } from 'lucide-react';
 
 import { CitationBox } from '@/components/citation-box';
 
@@ -31,15 +31,32 @@ const externalRows = [
   ['TFPO', '48.3', '56.1', '53.6', '41.3', '48.6', '46.8', '37.8', '41.0', '37.1'],
 ];
 
+const multimodalRows = [
+  ['Qwen3-VL-8B-Instruct', '66.74', '69.20', '15.00', '52.67', '80.57', '49.68', '88.80', '84.70', '64.87', '87.98', '73.92'],
+  ['DPO', '66.86', '71.30', '17.07', '48.67', '81.99', '50.64', '88.30', '84.02', '65.87', '87.90', '72.87'],
+  ['MPO', '67.54', '67.60', '20.49', '52.11', '85.07', '53.62', '85.70', '85.57', '65.73', '88.00', '71.50'],
+  ['SimPO', '52.16', '55.40', '12.96', '38.44', '61.14', '37.25', '69.20', '70.57', '45.33', '84.20', '47.11'],
+  ['TDPO', '63.86', '59.88', '26.34', '48.12', '80.12', '50.89', '81.20', '82.50', '59.28', '81.26', '69.00'],
+  ['ORPO', '19.52', '23.60', '5.07', '0.56', '3.34', '73.39', '10.00', '0.11', '0.00', '26.60', '52.58'],
+  ['TFPO', '71.03', '70.90', '30.93', '55.67', '85.90', '59.22', '86.30', '87.28', '69.20', '90.35', '74.50'],
+];
+
+function ResultRows({ rows }: { rows: string[][] }) {
+  return rows.map((row) => (
+    <tr key={row[0]} className={row[0] === 'TFPO' ? 'highlight-row' : undefined}>
+      {row.map((cell, index) => index === 0
+        ? <th key={cell} scope="row">{cell}</th>
+        : <td key={`${row[0]}-${index}`}>{cell}</td>)}
+    </tr>
+  ));
+}
+
 export default function Home() {
   return (
     <main id="top">
       <header className="topbar">
         <a className="site-name" href="#top">TFPO</a>
-        <nav aria-label="Primary navigation">
-          <a href="#method">Method</a><a href="#results">Results</a><a href="#video">Video</a>
-          <a href="./paper.pdf" target="_blank" rel="noreferrer">Paper</a>
-        </nav>
+        <span className="topbar-note">Research project</span>
       </header>
 
       <article className="paper-page">
@@ -50,8 +67,8 @@ export default function Home() {
           <div className="paper-links" aria-label="Project links">
             <a href="./paper.pdf" target="_blank" rel="noreferrer"><FileText aria-hidden="true" /> Paper</a>
             <a href="#video"><Play aria-hidden="true" /> Video</a>
-            <a href="https://github.com/bbbbubble/tfpo" target="_blank" rel="noreferrer"><ExternalLink aria-hidden="true" /> Code</a>
           </div>
+          <p className="code-release"><Code2 aria-hidden="true" /> Research code will be released upon paper acceptance.</p>
         </header>
 
         <section className="abstract-section text-column" aria-labelledby="abstract-title">
@@ -60,46 +77,31 @@ export default function Home() {
             Preference optimization is usually applied uniformly to entire responses, although explanatory text,
             final answers, formatting fields, and code need not benefit from the same training signal. We propose
             TFPO (Token-Fused Preference Optimization), which learns a lightweight gate that routes each response
-            token between a DPO-style preference objective and a chosen-response likelihood anchor. The route is
-            learned without token-level supervision and is stabilized by ratio, smoothness, and entropy
-            regularization. Under a matched ten-benchmark evaluation, TFPO averages 88.00, compared with 83.08 for
+            token between a <span className="ink-teal">DPO-style preference objective</span> and a <span className="ink-rust">chosen-response likelihood anchor</span>.
+            The route is learned <em>without token-level supervision</em> and is stabilized by ratio, smoothness, and entropy
+            regularization. Under a matched ten-benchmark evaluation, TFPO averages <strong className="metric-emphasis">88.00</strong>, compared with 83.08 for
             SimPO and 83.52 for the NLL-anchored SimPO+NLL control (three-seed means). It also improves external
             alignment across Qwen, Llama, and Mistral backbones and is effective in multimodal preference tuning.
             Under repeated sampling, TFPO raises answer agreement and majority-answer accuracy while preserving
             explanation diversity. On 1,000 gate- and model-blind annotated responses from five extractable-answer
-            tasks, its content gate recovers answer-bearing spans with 0.85 AUPRC, versus 0.55 for the strongest
-            strict position-only control. These results support token-level objective routing as a practical way to
+            tasks, its content gate recovers answer-bearing spans with <strong className="metric-emphasis">0.85 AUPRC</strong>, versus 0.55 for the strongest
+            strict position-only control. These results support <span className="text-underline">token-level objective routing</span> as a practical way to
             improve both preference alignment and answer stability.
           </p>
         </section>
 
-        <figure id="video" className="featured-video">
-          <div className="video-heading">
-            <div><span>Video overview</span><strong>TFPO in three minutes</strong></div>
-            <p>English narration · embedded captions · paper figures</p>
-          </div>
-          <div className="video-wrap">
-            <video controls preload="metadata" poster="./assets/video-poster.jpg">
-              <source src="./tfpo-explainer.mp4" type="video/mp4" />
-              <track kind="captions" src="./tfpo-explainer.vtt" srcLang="en" label="English" />
-              Your browser does not support embedded video.
-            </video>
-            <a className="download-link" href="./tfpo-explainer.mp4" download><Download aria-hidden="true" /> Download MP4</a>
-          </div>
-        </figure>
-
         <figure className="wide-figure overview-figure">
-          <img src="./assets/overview.png" alt="Summary of TFPO results across text capability, cross-family alignment, and multimodal preference tuning" />
-          <figcaption><strong>Figure 1.</strong> Summary of the main empirical picture. TFPO improves the main ten-benchmark average, judge-based alignment across three model families, and multimodal preference tuning.</figcaption>
+          <img src="./assets/overview-hd.png" alt="Summary of TFPO results across text capability, cross-family alignment, and multimodal preference tuning" />
+          <figcaption><strong>Figure 1.</strong> The main empirical picture: capability, cross-family alignment, and multimodal preference tuning under matched evaluation protocols.</figcaption>
         </figure>
 
         <section className="section-block" aria-labelledby="motivation-title">
           <div className="section-label">01</div>
           <div className="section-body text-column">
             <h2 id="motivation-title">Motivation</h2>
-            <p className="lead-paragraph">LLM responses are not homogeneous token strings. Their spans range from explanatory prose and answer-bearing fields to formatting delimiters, schema keys, and executable code.</p>
+            <p className="lead-paragraph">LLM responses are not homogeneous token strings. Their spans serve <em>different functional roles</em>.</p>
             <p>Reasoning tokens can benefit from preference shaping: they determine whether an explanation is helpful, concise, and well justified. In contrast, final answer fields, option letters, short numeric answers, JSON keys, or code fragments often need likelihood anchoring to remain parseable and stable. When all tokens inherit the same sequence-level preference pressure, these roles can interfere.</p>
-            <blockquote>The core claim is not merely that mixing preference and likelihood is helpful. Our claim is sharper:<em> where</em> each objective is applied matters.</blockquote>
+            <blockquote>The core claim is not merely that mixing preference and likelihood is helpful. Our claim is sharper: <span className="text-underline">where each objective is applied matters.</span></blockquote>
           </div>
         </section>
 
@@ -108,10 +110,10 @@ export default function Home() {
           <div className="section-body">
             <div className="text-column">
               <h2 id="method-title">Method</h2>
-              <p>TFPO learns a small gate over response tokens and uses it to route tokens between a preference objective for reasoning-sensitive regions and a chosen-response likelihood anchor for answer-bearing regions. It does not require explicit labels for reasoning or conclusion spans.</p>
+              <p>TFPO learns a small gate over response tokens and routes them between a <span className="ink-teal">preference objective for reasoning-sensitive regions</span> and a <span className="ink-rust">chosen-response likelihood anchor for answer-bearing regions</span>. No explicit reasoning or conclusion labels are required.</p>
             </div>
-            <figure className="wide-figure method-figure">
-              <img src="./assets/method.png" alt="TFPO method overview showing token-wise routing between preference gradients and likelihood anchoring" />
+            <figure className="wide-figure method-figure crisp-figure">
+              <img src="./assets/method-hd.png" alt="TFPO method overview showing token-wise routing between preference gradients and likelihood anchoring" />
               <figcaption><strong>Figure 2.</strong> TFPO learns token-wise routing: preference gradients primarily shape reasoning-sensitive tokens, while likelihood anchoring stabilizes answer-bearing and conclusion-sensitive tokens.</figcaption>
             </figure>
             <div className="method-note text-column">
@@ -127,13 +129,13 @@ export default function Home() {
           <div className="section-body">
             <div className="text-column">
               <h2 id="results-title">Main results</h2>
-              <p>Under one frozen, method-independent benchmark protocol, TFPO is strongest on the ten-benchmark average and on every constituent benchmark. The comparison with SimPO+NLL separates token-level routing from the simpler effect of adding a full-response likelihood anchor.</p>
+              <p>Under one frozen, method-independent benchmark protocol, <strong className="metric-emphasis">TFPO is strongest on the ten-benchmark average and every constituent benchmark.</strong> The SimPO+NLL control separates token-level routing from the simpler effect of adding a full-response likelihood anchor.</p>
             </div>
             <figure className="table-figure">
               <div className="table-scroll" aria-label="Scrollable main capability results">
                 <table className="paper-table capability-table">
                   <thead><tr>{capabilityHeaders.map((header) => <th key={header}>{header}</th>)}</tr></thead>
-                  <tbody>{capabilityRows.map((row) => <tr key={row[0]} className={row[0] === 'TFPO' ? 'highlight-row' : undefined}>{row.map((cell, index) => index === 0 ? <th key={cell} scope="row">{cell}</th> : <td key={`${row[0]}-${index}`}>{cell}</td>)}</tr>)}</tbody>
+                  <tbody><ResultRows rows={capabilityRows} /></tbody>
                 </table>
               </div>
               <figcaption><strong>Table 1.</strong> Matched capability evaluation on post-trained Qwen3-8B. Fine-tuned rows are three-seed means under one frozen, method-independent benchmark protocol.</figcaption>
@@ -146,7 +148,7 @@ export default function Home() {
           <div className="section-body">
             <div className="text-column">
               <h2 id="evidence-title">Does the gate follow content?</h2>
-              <p>The routing claim is tested against strict position-only controls, blind answer-span annotations, answer-position counterfactuals, and method-independent token-removal interventions. The final gold-span evaluation contains 1,000 responses from five extractable-answer tasks.</p>
+              <p>The routing claim is tested against strict position-only controls, blind answer-span annotations, answer-position counterfactuals, and method-independent token-removal interventions. The final gold-span evaluation contains <span className="text-underline">1,000 responses from five extractable-answer tasks</span>.</p>
             </div>
             <figure className="wide-figure evidence-figure">
               <img src="./assets/routing-evidence.png" alt="Held-out TFPO token-routing examples, including a counterfactual with the answer placed first" />
@@ -182,44 +184,118 @@ export default function Home() {
           <div className="section-label">05</div>
           <div className="section-body">
             <div className="text-column">
-              <h2 id="generality-title">Across model families and modalities</h2>
-              <p>The same routing recipe improves open-ended alignment for Qwen, Llama, and Mistral backbones. In multimodal preference tuning, it also helps preserve fragile answer fields after visual reasoning.</p>
+              <h2 id="generality-title">Across model families</h2>
+              <p>The same routing recipe improves open-ended alignment across three distinct backbones, suggesting that the gain is <em>not tied to one tokenizer, one instruction-tuning recipe, or one model family</em>.</p>
             </div>
             <figure className="table-figure">
               <div className="table-scroll" aria-label="Scrollable cross-family external alignment results">
                 <table className="paper-table external-table">
                   <thead>
-                    <tr><th rowSpan={3}>Method</th><th colSpan={3}>Qwen3-8B</th><th colSpan={3}>Llama-3.1-8B-Instruct</th><th colSpan={3}>Mistral-7B-Instruct-v0.3</th></tr>
+                    <tr>
+                      <th rowSpan={3}>Method</th>
+                      <th colSpan={3}><span className="model-family"><img src="./assets/qwen.png" alt="" />Qwen3-8B</span></th>
+                      <th colSpan={3}><span className="model-family"><img src="./assets/meta.png" alt="" />Llama-3.1-8B-Instruct</span></th>
+                      <th colSpan={3}><span className="model-family"><img src="./assets/mistral.png" alt="" />Mistral-7B-Instruct-v0.3</span></th>
+                    </tr>
                     <tr><th colSpan={2}>AlpacaEval 2.0</th><th>Arena-Hard</th><th colSpan={2}>AlpacaEval 2.0</th><th>Arena-Hard</th><th colSpan={2}>AlpacaEval 2.0</th><th>Arena-Hard</th></tr>
                     <tr><th>LC</th><th>WR</th><th>WR</th><th>LC</th><th>WR</th><th>WR</th><th>LC</th><th>WR</th><th>WR</th></tr>
                   </thead>
-                  <tbody>{externalRows.map((row) => <tr key={row[0]} className={row[0] === 'TFPO' ? 'highlight-row' : undefined}>{row.map((cell, index) => index === 0 ? <th key={cell} scope="row">{cell}</th> : <td key={`${row[0]}-${index}`}>{cell}</td>)}</tr>)}</tbody>
+                  <tbody><ResultRows rows={externalRows} /></tbody>
                 </table>
               </div>
               <figcaption><strong>Table 3.</strong> Cross-family external alignment. AlpacaEval reports length-controlled and raw win rate; Arena-Hard reports the official control-adjusted win rate.</figcaption>
             </figure>
-            <figure className="wide-figure multimodal-figure">
-              <img src="./assets/multimodal-cases.png" alt="Three multimodal examples comparing TFPO with preference-optimization baselines on visual counting, map reasoning, and numerical VQA" />
-              <figcaption><strong>Figure 4.</strong> Qualitative multimodal examples. TFPO keeps the required answer field parseable across visual counting, map reasoning, and numerical VQA; these cases illustrate the aggregate result rather than replace it.</figcaption>
+          </div>
+        </section>
+
+        <section className="section-block multimodal-section" aria-labelledby="multimodal-title">
+          <div className="section-label">06</div>
+          <div className="section-body">
+            <div className="text-column">
+              <h2 id="multimodal-title">Multimodal preference tuning</h2>
+              <p>Visual reasoning often ends in a fragile answer field: an OCR string, a count, an option letter, or a structured response. TFPO reaches the strongest multimodal average, <strong className="metric-emphasis">71.03</strong>, across ten judge-scored benchmarks.</p>
+            </div>
+            <figure className="table-figure">
+              <div className="table-scroll" aria-label="Scrollable multimodal benchmark results">
+                <table className="paper-table multimodal-table">
+                  <thead>
+                    <tr><th rowSpan={2}>Method</th><th rowSpan={2}>Avg.</th><th colSpan={3}>Reasoning</th><th colSpan={5}>General VQA</th><th colSpan={2}>Hallucination</th></tr>
+                    <tr><th>MathVista</th><th>MathVision</th><th>MMMU</th><th>AI2D</th><th>MMVet</th><th>LLaVA-Bench</th><th>MMBench</th><th>MMStar</th><th>POPE</th><th>HallusionBench</th></tr>
+                  </thead>
+                  <tbody><ResultRows rows={multimodalRows} /></tbody>
+                </table>
+              </div>
+              <figcaption><strong>Table 4.</strong> Per-benchmark multimodal results for methods trained from Qwen3-VL-8B-Instruct. Scores use the paper&apos;s judge-based protocol.</figcaption>
             </figure>
+
+            <div className="case-study-list" aria-label="Qualitative multimodal examples">
+              <article className="case-study">
+                <div className="case-visual"><p>Case 1 · Visual counting</p><img src="./assets/mllm-case-1.png" alt="Five solids made from dice for a visual counting task" /></div>
+                <div className="case-copy">
+                  <p className="case-meta">MathVision · format drift</p>
+                  <h3>Keep the final option parseable</h3>
+                  <p><strong>Question.</strong> Max has 10 dice. Which one of the five solids can he build? The prompt asks for a final option letter.</p>
+                  <p><strong className="ink-teal">TFPO.</strong> Counts the candidates, identifies compatible solids, and returns the required final option: <strong>A</strong>.</p>
+                  <p><strong className="ink-rust">ORPO.</strong> Gives a semantically close description—“the fifth figure”—but omits the required option letter.</p>
+                  <p className="interpretation"><em>Interpretation.</em> The example separates visual reasoning from answer-field discipline: a near-correct description can still fail the required output format.</p>
+                </div>
+              </article>
+
+              <article className="case-study reverse">
+                <div className="case-visual"><p>Case 2 · Map reasoning</p><img src="./assets/mllm-case-2.png" alt="Map of Silk Road routes around 1300 CE" /></div>
+                <div className="case-copy">
+                  <p className="case-meta">MMBench · unsupported option</p>
+                  <h3>Keep the explanation aligned with the image</h3>
+                  <p><strong>Question.</strong> Which statement does the Silk Road map support: a network linking East Asia, the Middle East, and Europe; a Pacific connection to the Americas; or only land routes?</p>
+                  <p><strong className="ink-teal">TFPO.</strong> Selects <strong>A</strong> and grounds the choice in the mapped overland and maritime network.</p>
+                  <p><strong className="ink-rust">TDPO.</strong> Hallucinates a route across the Pacific and answers <strong>B</strong>.</p>
+                  <p className="interpretation"><em>Interpretation.</em> The failure is semantic rather than cosmetic: a plausible-sounding explanation conflicts with the visual evidence.</p>
+                </div>
+              </article>
+
+              <article className="case-study">
+                <div className="case-visual stacked-visual"><p>Case 3 · Numerical VQA</p><img src="./assets/mllm-case-3a.png" alt="Stream survey profile" /><img src="./assets/mllm-case-3b.png" alt="Survey offsets table" /></div>
+                <div className="case-copy">
+                  <p className="case-meta">MMMU · excessive verbosity</p>
+                  <h3>Preserve a concise numerical conclusion</h3>
+                  <p><strong>Question.</strong> Use the offsets to compute the area by the trapezoidal and Simpson&apos;s rules.</p>
+                  <p><strong className="ink-teal">TFPO.</strong> Computes <strong>0.5010</strong> and <strong>0.5260 hectares</strong>, then selects <strong>C</strong>.</p>
+                  <p><strong className="ink-rust">SimPO.</strong> Reaches the same answer but produces a substantially longer response than the option-selection task requires.</p>
+                  <p className="interpretation"><em>Interpretation.</em> Stable final-answer anchoring concerns not only correctness, but also preserving a concise, explicit conclusion after multi-step reasoning.</p>
+                </div>
+              </article>
+            </div>
+            <p className="case-caption"><strong>Figure 4.</strong> The paper&apos;s complete three-case qualitative narrative, reorganized for screen reading. The cases cover format drift, a visually unsupported option, and excessive verbosity.</p>
           </div>
         </section>
 
         <section className="section-block" aria-labelledby="stability-title">
-          <div className="section-label">06</div>
+          <div className="section-label">07</div>
           <div className="section-body">
             <div className="text-column">
               <h2 id="stability-title">Answer stability without uniformity</h2>
-              <p>On BBH, GSM8K, and MATH, four matched samples are drawn per prompt for each of three training seeds. Relative to SimPO+NLL, TFPO improves answer agreement, majority accuracy, and average accuracy while increasing rather than sacrificing explanation diversity.</p>
+              <p>On BBH, GSM8K, and MATH, four matched samples are drawn per prompt for each of three training seeds. Relative to SimPO+NLL, TFPO improves answer agreement, majority accuracy, and average accuracy while <span className="text-underline">increasing rather than sacrificing explanation diversity</span>.</p>
             </div>
             <figure className="table-figure compact-table-figure">
               <div className="table-scroll" aria-label="Scrollable repeated-sampling stability results">
-                <table className="paper-table"><thead><tr><th>Method</th><th>Agreement@4 ↑</th><th>MajorityAcc@4 ↑</th><th>AvgAcc@4 ↑</th><th>Div.@4 ↑</th><th>Valid ↑</th></tr></thead><tbody>{stabilityRows.map((row) => <tr key={row[0]} className={row[0] === 'TFPO' ? 'highlight-row' : undefined}>{row.map((cell, index) => index === 0 ? <th key={cell} scope="row">{cell}</th> : <td key={`${row[0]}-${index}`}>{cell}</td>)}</tr>)}</tbody></table>
+                <table className="paper-table"><thead><tr><th>Method</th><th>Agreement@4 ↑</th><th>MajorityAcc@4 ↑</th><th>AvgAcc@4 ↑</th><th>Div.@4 ↑</th><th>Valid ↑</th></tr></thead><tbody><ResultRows rows={stabilityRows} /></tbody></table>
               </div>
-              <figcaption><strong>Table 4.</strong> Repeated-sampling stability, macro-averaged over BBH, GSM8K, and MATH and then over three training seeds.</figcaption>
+              <figcaption><strong>Table 5.</strong> Repeated-sampling stability, macro-averaged over BBH, GSM8K, and MATH and then over three training seeds.</figcaption>
             </figure>
           </div>
         </section>
+
+        <figure id="video" className="featured-video">
+          <div className="video-heading"><span>Video overview</span><strong>A visual overview of TFPO</strong></div>
+          <div className="video-wrap">
+            <video controls preload="metadata" poster="./assets/video-poster.jpg">
+              <source src="./tfpo-explainer.mp4" type="video/mp4" />
+              <track kind="captions" src="./tfpo-explainer.vtt" srcLang="en" label="English" />
+              Your browser does not support embedded video.
+            </video>
+            <a className="download-link" href="./tfpo-explainer.mp4" download><Download aria-hidden="true" /> Download MP4</a>
+          </div>
+        </figure>
 
         <section className="citation-section" aria-labelledby="citation-title">
           <div className="text-column"><h2 id="citation-title">Citation</h2><p>If you find TFPO useful, please cite the paper.</p></div>
@@ -227,7 +303,7 @@ export default function Home() {
         </section>
       </article>
 
-      <footer><span>TFPO · Pei Chen · 2026</span><span><a href="./paper.pdf" target="_blank" rel="noreferrer">Paper</a> · <a href="https://github.com/bbbbubble/tfpo">GitHub</a></span></footer>
+      <footer><span>TFPO · Pei Chen · 2026</span><a href="./paper.pdf" target="_blank" rel="noreferrer">Paper</a></footer>
     </main>
   );
 }

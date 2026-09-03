@@ -32,6 +32,7 @@
     "coverage/**",
     "components/ui/**",
     "hooks/**",
+    "remotion-video/**",
     "next-env.d.ts"
   ],
   "rules": {

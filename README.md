@@ -5,6 +5,10 @@ Official project page for **TFPO: Token-Level Objective Fusion for Stable Prefer
 The site presents the abstract, method figures, matched capability results,
 mechanistic evidence, and a 1920×1080 narrated explainer with English captions.
 
+> **Research-code status:** this repository contains the project website and
+> video-production source only. The TFPO research implementation is not included
+> and will be released upon paper acceptance.
+
 ## Local development
 
 ```bash
@@ -32,16 +36,19 @@ SHA-256:
 The website intentionally does not state a conference venue and does not
 publish the supplementary package.
 
-## Video regeneration
+## Video production
 
-The checked-in video is reproducibly assembled from the paper figures,
-animated focus cues, typeset on-frame captions, and source-faithful narration
-using an online neural voice. Install the small rendering dependencies and run:
+The checked-in video is built as a Remotion composition with native typography,
+purposeful data animation, paper-derived assets, unobtrusive captions, and
+source-faithful English narration. Generate the narration timing first, then
+render the composition:
 
 ```bash
-python3 -m pip install edge-tts pillow imageio-ffmpeg
 python3 scripts/make_explainer.py
+cd remotion-video
+npm install
+npx remotion render TFPOExplainer ../public/tfpo-explainer.mp4
 ```
 
-The script uses `en-US-AndrewMultilingualNeural` and an ffmpeg binary supplied
-by `imageio-ffmpeg`.
+The current narration uses `en-US-AvaMultilingualNeural`. An optional WebVTT
+track is also generated for browser accessibility.

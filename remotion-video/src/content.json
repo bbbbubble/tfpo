@@ -1,0 +1,62 @@
+[
+  {
+    "id": "premise",
+    "label": "Premise",
+    "title": "One response. Different token roles.",
+    "narration": "Preference optimization usually asks one objective to supervise an entire answer. TFPO starts from a different premise: different tokens play different roles, so they should not all receive the same training signal."
+  },
+  {
+    "id": "conflict",
+    "label": "The conflict",
+    "title": "Uniform pressure creates interference.",
+    "narration": "Reasoning tokens determine whether an explanation is helpful and well justified. Final answers, option letters, schema keys, and code fragments often need likelihood anchoring to remain stable and parseable. Applying one sequence-level preference signal everywhere can make these roles interfere."
+  },
+  {
+    "id": "routing",
+    "label": "Method",
+    "title": "Learn where each objective should act.",
+    "narration": "TFPO adds a lightweight gate to every response token. Low gate values send more weight to a DPO-style preference objective. High values emphasize chosen-response likelihood. In effect, reasoning-sensitive spans receive preference shaping, while answer-bearing spans receive stronger anchoring."
+  },
+  {
+    "id": "regularization",
+    "label": "Learning the route",
+    "title": "No token labels are required.",
+    "narration": "The route is learned directly from preference pairs, without token-level supervision. Three regularizers keep the gate useful: a ratio target prevents branch collapse, total variation discourages noisy switching, and entropy prevents premature saturation."
+  },
+  {
+    "id": "capability",
+    "label": "Main evaluation",
+    "title": "A consistent capability gain.",
+    "narration": "Under one frozen ten-benchmark protocol, TFPO averages eighty-eight point zero zero on post-trained Qwen three eight B. SimPO reaches eighty-three point zero eight, and the full-response SimPO plus NLL control reaches eighty-three point five two. TFPO is strongest on every benchmark in the main table."
+  },
+  {
+    "id": "evidence",
+    "label": "Routing evidence",
+    "title": "The gate follows content, not position.",
+    "narration": "The routing claim is tested independently of benchmark accuracy. On one thousand blind annotated responses, the content gate reaches zero point eight five A U P R C, versus zero point five five for the strongest strict position-only control. Moving the answer to the beginning, middle, or end changes TFPO's score by only zero point zero two."
+  },
+  {
+    "id": "families",
+    "label": "Cross-family alignment",
+    "title": "The pattern transfers across backbones.",
+    "narration": "The same routing recipe improves open-ended alignment across Qwen, Llama, and Mistral backbones. TFPO is strongest in every reported AlpacaEval and Arena-Hard column, suggesting that the gain is not tied to one tokenizer or one instruction-tuning recipe."
+  },
+  {
+    "id": "multimodal",
+    "label": "Multimodal extension",
+    "title": "Visual reasoning has fragile conclusions too.",
+    "narration": "With a Qwen three V L backbone, TFPO reaches the best multimodal average of seventy-one point zero three across ten benchmarks. The qualitative cases show three distinct instabilities: omitting a required option letter, selecting an unsupported answer from a map, and producing an unnecessarily long numerical conclusion."
+  },
+  {
+    "id": "stability",
+    "label": "Repeated sampling",
+    "title": "Stable answers, diverse explanations.",
+    "narration": "Across four matched samples per prompt, TFPO raises answer agreement to ninety-two point six nine, majority accuracy to eighty-six point three two, and average accuracy to ninety point five seven. Explanation diversity also rises to sixty-two point three three rather than being traded away."
+  },
+  {
+    "id": "closing",
+    "label": "Takeaway",
+    "title": "Preference alignment is token-level credit assignment.",
+    "narration": "The central lesson is simple. It is not enough to ask which objectives should be mixed. We should also ask where each objective should act inside the response. TFPO turns that question into a learned, token-level route."
+  }
+]

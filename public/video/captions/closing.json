@@ -1,0 +1,30 @@
+[
+  {
+    "text": "The central lesson is simple.",
+    "startMs": 50,
+    "endMs": 2010,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "It is not enough to ask which objectives should be mixed.",
+    "startMs": 2010,
+    "endMs": 5154,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "We should also ask where each objective should act inside the response.",
+    "startMs": 5154,
+    "endMs": 9175,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "TFPO turns that question into a learned, token-level route.",
+    "startMs": 9175,
+    "endMs": 13634,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

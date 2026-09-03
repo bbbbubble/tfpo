@@ -1,0 +1,16 @@
+[
+  {
+    "text": "With a Qwen three V L backbone, TFPO reaches the best multimodal average of seventy-one point zero three across ten benchmarks.",
+    "startMs": 50,
+    "endMs": 9317,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "The qualitative cases show three distinct instabilities: omitting a required option letter, selecting an unsupported answer from a map, and producing an unnecessarily long numerical conclusion.",
+    "startMs": 9317,
+    "endMs": 22100,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

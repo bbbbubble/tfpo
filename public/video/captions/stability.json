@@ -1,0 +1,16 @@
+[
+  {
+    "text": "Across four matched samples per prompt, TFPO raises answer agreement to ninety-two point six nine, majority accuracy to eighty-six point three two, and average accuracy to ninety point five seven.",
+    "startMs": 50,
+    "endMs": 12899,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Explanation diversity also rises to sixty-two point three three rather than being traded away.",
+    "startMs": 12899,
+    "endMs": 19652,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

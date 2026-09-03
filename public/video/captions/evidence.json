@@ -1,0 +1,23 @@
+[
+  {
+    "text": "The routing claim is tested independently of benchmark accuracy.",
+    "startMs": 50,
+    "endMs": 4265,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "On one thousand blind annotated responses, the content gate reaches zero point eight five A U P R C, versus zero point five five for the strongest strict position-only control.",
+    "startMs": 4265,
+    "endMs": 16572,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Moving the answer to the beginning, middle, or end changes TFPO's score by only zero point zero two.",
+    "startMs": 16572,
+    "endMs": 23543,
+    "timestampMs": null,
+    "confidence": null
+  }
+]
