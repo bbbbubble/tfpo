@@ -1,4 +1,3 @@
-import { Check, Copy } from 'lucide-react';
 import { useState } from 'react';
 
 const bibtex = `@article{chen2026tfpo,
@@ -21,7 +20,6 @@ export function CitationBox() {
       <div className="citation-topline">
         <span>BibTeX</span>
         <button type="button" onClick={copyCitation} aria-label="Copy BibTeX citation">
-          {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
           {copied ? 'Copied' : 'Copy'}
         </button>
       </div>

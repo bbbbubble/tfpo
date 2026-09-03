@@ -2,7 +2,6 @@ import { Code2, Download, FileText, Play } from 'lucide-react';
 
 import { CitationBox } from '@/components/citation-box';
 import { InlineMath } from '@/components/math';
-import { MethodDiagram } from '@/components/method-diagram';
 
 const capabilityRows = [
   ['Qwen3-8B', '81.50', '79.2', '92.1', '78.4', '83.2', '79.5', '84.1', '88.5', '70.2', '83.7', '76.1'],
@@ -104,18 +103,19 @@ export default function Home() {
           </div>
         </figure>
 
-        <figure className="wide-figure overview-figure">
-          <img src="./assets/overview-hd.png" alt="Summary of TFPO results across text capability, cross-family alignment, and multimodal preference tuning" />
-          <figcaption><strong>Figure 1.</strong> The main empirical picture: capability, cross-family alignment, and multimodal preference tuning under matched evaluation protocols.</figcaption>
-        </figure>
-
         <section className="section-block" aria-labelledby="motivation-title">
           <div className="section-label">01</div>
-          <div className="section-body text-column">
-            <h2 id="motivation-title">Motivation</h2>
-            <p className="lead-paragraph">LLM responses are not homogeneous token strings. Their spans serve <em>different functional roles</em>.</p>
-            <p>Reasoning tokens can benefit from preference shaping: they determine whether an explanation is helpful, concise, and well justified. In contrast, final answer fields, option letters, short numeric answers, JSON keys, or code fragments often need likelihood anchoring to remain parseable and stable. When all tokens inherit the same sequence-level preference pressure, these roles can interfere.</p>
-            <blockquote>The core claim is not merely that mixing preference and likelihood is helpful. Our claim is sharper: <span className="text-underline">where each objective is applied matters.</span></blockquote>
+          <div className="section-body">
+            <div className="text-column">
+              <h2 id="motivation-title">Motivation</h2>
+              <p className="lead-paragraph">LLM responses are not homogeneous token strings. Their spans serve <em>different functional roles</em>.</p>
+              <p>Reasoning tokens can benefit from preference shaping: they determine whether an explanation is helpful, concise, and well justified. In contrast, final answer fields, option letters, short numeric answers, JSON keys, or code fragments often need likelihood anchoring to remain parseable and stable. When all tokens inherit the same sequence-level preference pressure, these roles can interfere.</p>
+              <blockquote>The core claim is not merely that mixing preference and likelihood is helpful. Our claim is sharper: <span className="text-underline">where each objective is applied matters.</span></blockquote>
+            </div>
+            <figure className="wide-figure overview-figure motivation-overview">
+              <img src="./assets/overview-hd.png" alt="Summary of TFPO results across text capability, cross-family alignment, and multimodal preference tuning" />
+              <figcaption><strong>Figure 1.</strong> The main empirical picture: capability, cross-family alignment, and multimodal preference tuning under matched evaluation protocols.</figcaption>
+            </figure>
           </div>
         </section>
 
@@ -127,8 +127,8 @@ export default function Home() {
               <p>TFPO learns a small gate over response tokens and routes them between a <span className="ink-teal">preference objective for reasoning-sensitive regions</span> and a <span className="ink-rust">chosen-response likelihood anchor for answer-bearing regions</span>. No explicit reasoning or conclusion labels are required.</p>
             </div>
             <figure className="wide-figure method-figure crisp-figure">
-              <MethodDiagram />
-              <figcaption><strong>Figure 2.</strong> TFPO learns token-wise routing: preference gradients primarily shape reasoning-sensitive tokens, while likelihood anchoring stabilizes answer-bearing and conclusion-sensitive tokens.</figcaption>
+              <img className="paper-teaser" src="./assets/teaser-paper-exact.png" alt="The original TFPO method overview from the paper: sequence-level objective interference, learned token-wise routing, and stable alignment" />
+              <figcaption><strong>Figure 2.</strong> Overview of TFPO. Instead of assigning one optimization signal to a functionally heterogeneous response, TFPO learns token-wise routing: preference gradients primarily shape reasoning-sensitive tokens, while likelihood anchoring stabilizes answer-bearing and conclusion-sensitive tokens. The displayed loss is schematic; the actual implementation uses the routed DPO sequence scores in Eqs. (2)-(4) and the full objective in Eq. (9).</figcaption>
             </figure>
             <div className="method-note text-column">
               <p>For each token, a single linear head reads the decoder hidden state through a stop-gradient path:</p>
