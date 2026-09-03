@@ -1,0 +1,30 @@
+[
+  {
+    "text": "Across 4 matched samples per prompt,",
+    "startMs": 50,
+    "endMs": 3721,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "TFPO raises answer agreement to 92.69,",
+    "startMs": 3721,
+    "endMs": 7392,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "majority accuracy to 86.32, and average accuracy to 90.57.",
+    "startMs": 7392,
+    "endMs": 12899,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Explanation diversity also rises to 62.33 rather than being traded away.",
+    "startMs": 12899,
+    "endMs": 19652,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

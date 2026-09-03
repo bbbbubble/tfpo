@@ -1,0 +1,37 @@
+[
+  {
+    "text": "TFPO adds a lightweight gate to every response token.",
+    "startMs": 50,
+    "endMs": 3994,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Low gate values send more weight to a DPO-style preference objective.",
+    "startMs": 3994,
+    "endMs": 8582,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "High values emphasize chosen-response likelihood.",
+    "startMs": 8582,
+    "endMs": 11855,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "In effect, reasoning-sensitive spans receive preference shaping,",
+    "startMs": 11855,
+    "endMs": 15984,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "while answer-bearing spans receive stronger anchoring.",
+    "startMs": 15984,
+    "endMs": 19523,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

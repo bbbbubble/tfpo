@@ -1,0 +1,23 @@
+[
+  {
+    "text": "Under one frozen 10-benchmark protocol, TFPO averages 88.00 on post-trained Qwen3-8B.",
+    "startMs": 50,
+    "endMs": 7939,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "SimPO reaches 83.08, and the full-response SimPO plus NLL control reaches 83.52.",
+    "startMs": 7939,
+    "endMs": 16546,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "TFPO is strongest on every benchmark in the main table.",
+    "startMs": 16546,
+    "endMs": 20824,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

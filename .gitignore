@@ -13,9 +13,9 @@
 /coverage
 
 # next.js
-/.next/
-/.vinext/
-/out/
+**/.next/
+**/.vinext/
+**/out/
 
 # misc
 .DS_Store
@@ -36,9 +36,9 @@ yarn-error.log*
 # deployment and generated files
 .vercel
 next-env.d.ts
-/dist/
-/dist-pages/
-/build/
-/.wrangler/
-/outputs/
-/work/
+**/dist/
+**/dist-pages/
+**/build/
+**/.wrangler/
+**/outputs/
+**/work/

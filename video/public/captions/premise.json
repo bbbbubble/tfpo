@@ -1,0 +1,30 @@
+[
+  {
+    "text": "Preference optimization usually asks one objective to supervise an entire answer.",
+    "startMs": 50,
+    "endMs": 5438,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "TFPO starts from a different premise:",
+    "startMs": 5438,
+    "endMs": 7680,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "different tokens play different roles, so they should not all receive",
+    "startMs": 7680,
+    "endMs": 11791,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "the same training signal.",
+    "startMs": 11791,
+    "endMs": 13286,
+    "timestampMs": null,
+    "confidence": null
+  }
+]

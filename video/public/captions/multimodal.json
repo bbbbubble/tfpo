@@ -1,0 +1,37 @@
+[
+  {
+    "text": "With a Qwen3-VL backbone, TFPO reaches the best multimodal average of",
+    "startMs": 50,
+    "endMs": 6846,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "71.03 across 10 benchmarks.",
+    "startMs": 6846,
+    "endMs": 9317,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "The qualitative cases show 3 distinct instabilities:",
+    "startMs": 9317,
+    "endMs": 12759,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "omitting a required option letter, selecting an unsupported answer from a map,",
+    "startMs": 12759,
+    "endMs": 18658,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "and producing an unnecessarily long numerical conclusion.",
+    "startMs": 18658,
+    "endMs": 22100,
+    "timestampMs": null,
+    "confidence": null
+  }
+]
