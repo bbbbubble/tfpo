@@ -1,0 +1,97 @@
+WEBVTT
+
+1
+00:00:00.050 --> 00:00:05.638
+Preference optimization usually applies one signal to an entire response.
+
+2
+00:00:05.638 --> 00:00:14.055
+But explanations, final answers, formatting fields, and code do not necessarily need the same objective.
+
+3
+00:00:14.055 --> 00:00:21.529
+TFPO learns where preference pressure should act, and where likelihood anchoring should preserve a stable conclusion.
+
+4
+00:00:22.100 --> 00:00:26.970
+Sequence-level preference learning creates a coarse credit-assignment problem.
+
+5
+00:00:26.970 --> 00:00:34.882
+Reasoning tokens can benefit from preference shaping because they affect whether an explanation is helpful and well justified.
+
+6
+00:00:34.882 --> 00:00:44.909
+Short answer fields, option letters, JSON keys, and code fragments often need a likelihood anchor to remain correct, parseable, and stable.
+
+7
+00:00:44.909 --> 00:00:52.528
+The central question is therefore not only which objectives to mix, but where each objective should be applied.
+
+8
+00:00:53.100 --> 00:01:01.228
+TFPO predicts a scalar gate for every response token using a single linear head over the decoder hidden state.
+
+9
+00:01:01.228 --> 00:01:07.119
+A low gate value routes token mass toward a DPO-style preference objective.
+
+10
+00:01:07.119 --> 00:01:11.321
+A high value weights chosen-response negative log likelihood.
+
+11
+00:01:11.321 --> 00:01:15.802
+The route is learned from preference pairs without token-level labels.
+
+12
+00:01:15.802 --> 00:01:24.871
+Ratio, total-variation, and entropy regularization prevent collapse, noisy switching, and premature saturation.
+
+13
+00:01:25.420 --> 00:01:35.755
+Under one frozen, method-independent ten-benchmark protocol on post-trained Qwen three eight B, TFPO averages eighty-eight point zero zero.
+
+14
+00:01:35.755 --> 00:01:46.260
+SimPO averages eighty-three point zero eight, and the NLL-anchored SimPO plus NLL control averages eighty-three point five two.
+
+15
+00:01:46.260 --> 00:01:50.463
+TFPO is strongest on every benchmark in the main table.
+
+16
+00:01:50.463 --> 00:02:00.649
+The same routing recipe also improves external alignment across Qwen, Llama, and Mistral backbones, and extends to multimodal preference tuning.
+
+17
+00:02:01.220 --> 00:02:12.380
+The mechanism is tested against strict position-only controls, blind answer-span annotations, answer-position counterfactuals, and token-removal interventions.
+
+18
+00:02:12.380 --> 00:02:24.574
+On one thousand gate-blind and model-blind annotated responses from five extractable-answer tasks, the TFPO content gate reaches zero point eight five A U P R C.
+
+19
+00:02:24.574 --> 00:02:30.146
+The strongest strict position-only control reaches zero point five five.
+
+20
+00:02:30.146 --> 00:02:41.489
+When the same answer is moved to the beginning, middle, or end, the content gate remains stable, supporting routing by content rather than a fixed tail shortcut.
+
+21
+00:02:42.060 --> 00:02:54.257
+With four matched samples per prompt on B B H, G S M eight K, and MATH, TFPO improves answer agreement, majority accuracy, and average accuracy.
+
+22
+00:02:54.257 --> 00:02:59.775
+At the same time, explanation diversity increases rather than decreases.
+
+23
+00:02:59.775 --> 00:03:12.222
+The evidence is deliberately bounded: gold spans cover five extractable-answer tasks, the route is latent, and the scale study uses seven to eight billion parameter LoRA settings.
+
+24
+00:03:12.222 --> 00:03:21.531
+Within those limits, the results support token-level objective routing as a practical route to stronger and more stable preference alignment.
