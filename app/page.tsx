@@ -21,6 +21,16 @@ const stabilityRows = [
   ['TFPO', '92.69', '86.32', '90.57', '62.33', '99.80'],
 ];
 
+const externalRows = [
+  ['SFT/Instruct', '19.8', '31.2', '34.1', '7.1', '23.1', '27.5', '11.3', '19.2', '13.8'],
+  ['DPO', '24.1', '34.6', '38.0', '10.6', '25.7', '30.1', '12.6', '22.7', '19.8'],
+  ['MPO', '30.8', '37.2', '41.5', '23.4', '28.8', '32.4', '17.4', '25.0', '20.1'],
+  ['SimPO', '44.1', '49.7', '50.2', '38.6', '44.9', '41.6', '34.9', '39.1', '34.3'],
+  ['TDPO', '36.9', '41.6', '42.1', '27.1', '38.2', '35.3', '25.1', '36.2', '25.7'],
+  ['ORPO', '17.4', '19.7', '36.1', '9.4', '8.7', '28.6', '10.1', '12.5', '14.9'],
+  ['TFPO', '48.3', '56.1', '53.6', '41.3', '48.6', '46.8', '37.8', '41.0', '37.1'],
+];
+
 export default function Home() {
   return (
     <main id="top">
@@ -62,6 +72,21 @@ export default function Home() {
             improve both preference alignment and answer stability.
           </p>
         </section>
+
+        <figure id="video" className="featured-video">
+          <div className="video-heading">
+            <div><span>Video overview</span><strong>TFPO in three minutes</strong></div>
+            <p>English narration · embedded captions · paper figures</p>
+          </div>
+          <div className="video-wrap">
+            <video controls preload="metadata" poster="./assets/video-poster.jpg">
+              <source src="./tfpo-explainer.mp4" type="video/mp4" />
+              <track kind="captions" src="./tfpo-explainer.vtt" srcLang="en" label="English" />
+              Your browser does not support embedded video.
+            </video>
+            <a className="download-link" href="./tfpo-explainer.mp4" download><Download aria-hidden="true" /> Download MP4</a>
+          </div>
+        </figure>
 
         <figure className="wide-figure overview-figure">
           <img src="./assets/overview.png" alt="Summary of TFPO results across text capability, cross-family alignment, and multimodal preference tuning" />
@@ -153,8 +178,35 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-block" aria-labelledby="stability-title">
+        <section className="section-block" aria-labelledby="generality-title">
           <div className="section-label">05</div>
+          <div className="section-body">
+            <div className="text-column">
+              <h2 id="generality-title">Across model families and modalities</h2>
+              <p>The same routing recipe improves open-ended alignment for Qwen, Llama, and Mistral backbones. In multimodal preference tuning, it also helps preserve fragile answer fields after visual reasoning.</p>
+            </div>
+            <figure className="table-figure">
+              <div className="table-scroll" aria-label="Scrollable cross-family external alignment results">
+                <table className="paper-table external-table">
+                  <thead>
+                    <tr><th rowSpan={3}>Method</th><th colSpan={3}>Qwen3-8B</th><th colSpan={3}>Llama-3.1-8B-Instruct</th><th colSpan={3}>Mistral-7B-Instruct-v0.3</th></tr>
+                    <tr><th colSpan={2}>AlpacaEval 2.0</th><th>Arena-Hard</th><th colSpan={2}>AlpacaEval 2.0</th><th>Arena-Hard</th><th colSpan={2}>AlpacaEval 2.0</th><th>Arena-Hard</th></tr>
+                    <tr><th>LC</th><th>WR</th><th>WR</th><th>LC</th><th>WR</th><th>WR</th><th>LC</th><th>WR</th><th>WR</th></tr>
+                  </thead>
+                  <tbody>{externalRows.map((row) => <tr key={row[0]} className={row[0] === 'TFPO' ? 'highlight-row' : undefined}>{row.map((cell, index) => index === 0 ? <th key={cell} scope="row">{cell}</th> : <td key={`${row[0]}-${index}`}>{cell}</td>)}</tr>)}</tbody>
+                </table>
+              </div>
+              <figcaption><strong>Table 3.</strong> Cross-family external alignment. AlpacaEval reports length-controlled and raw win rate; Arena-Hard reports the official control-adjusted win rate.</figcaption>
+            </figure>
+            <figure className="wide-figure multimodal-figure">
+              <img src="./assets/multimodal-cases.png" alt="Three multimodal examples comparing TFPO with preference-optimization baselines on visual counting, map reasoning, and numerical VQA" />
+              <figcaption><strong>Figure 4.</strong> Qualitative multimodal examples. TFPO keeps the required answer field parseable across visual counting, map reasoning, and numerical VQA; these cases illustrate the aggregate result rather than replace it.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section className="section-block" aria-labelledby="stability-title">
+          <div className="section-label">06</div>
           <div className="section-body">
             <div className="text-column">
               <h2 id="stability-title">Answer stability without uniformity</h2>
@@ -164,28 +216,8 @@ export default function Home() {
               <div className="table-scroll" aria-label="Scrollable repeated-sampling stability results">
                 <table className="paper-table"><thead><tr><th>Method</th><th>Agreement@4 ↑</th><th>MajorityAcc@4 ↑</th><th>AvgAcc@4 ↑</th><th>Div.@4 ↑</th><th>Valid ↑</th></tr></thead><tbody>{stabilityRows.map((row) => <tr key={row[0]} className={row[0] === 'TFPO' ? 'highlight-row' : undefined}>{row.map((cell, index) => index === 0 ? <th key={cell} scope="row">{cell}</th> : <td key={`${row[0]}-${index}`}>{cell}</td>)}</tr>)}</tbody></table>
               </div>
-              <figcaption><strong>Table 3.</strong> Repeated-sampling stability, macro-averaged over BBH, GSM8K, and MATH and then over three training seeds.</figcaption>
+              <figcaption><strong>Table 4.</strong> Repeated-sampling stability, macro-averaged over BBH, GSM8K, and MATH and then over three training seeds.</figcaption>
             </figure>
-          </div>
-        </section>
-
-        <section id="video" className="section-block" aria-labelledby="video-title">
-          <div className="section-label">06</div>
-          <div className="section-body">
-            <div className="text-column"><h2 id="video-title">Video overview</h2><p>A concise English walkthrough of the problem, method, and main evidence.</p></div>
-            <div className="video-wrap">
-              <video controls preload="metadata" poster="./assets/video-poster.jpg"><source src="./tfpo-explainer.mp4" type="video/mp4" /><track default kind="captions" src="./tfpo-explainer.vtt" srcLang="en" label="English" />Your browser does not support embedded video.</video>
-              <a className="download-link" href="./tfpo-explainer.mp4" download><Download aria-hidden="true" /> Download MP4</a>
-            </div>
-          </div>
-        </section>
-
-        <section className="section-block closing-section" aria-labelledby="limitations-title">
-          <div className="section-label">07</div>
-          <div className="section-body text-column">
-            <h2 id="limitations-title">Limitations and conclusion</h2>
-            <p>Gold-span semantics are evaluated only on five tasks with extractable answer fields and should not be read as a unique partition for arbitrary open-ended text. The learned route is latent and not necessarily identifiable, and the model-scale evidence is limited to 7–8B LoRA settings. Judge-based evaluations remain judge-dependent. TFPO can improve parseability and answer stability, but it does not remove risks such as hallucination, bias, or misuse.</p>
-            <p>TFPO reframes preference optimization as token-level credit assignment: choosing which response parts should receive preference pressure and which should retain likelihood anchoring. The capability gains, routing controls, blind gold-span recovery, answer-position counterfactuals, and repeated-sampling stability support the importance of <em>where</em> objectives act inside a response.</p>
           </div>
         </section>
 

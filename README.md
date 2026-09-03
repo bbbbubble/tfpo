@@ -34,9 +34,9 @@ publish the supplementary package.
 
 ## Video regeneration
 
-The checked-in video is reproducibly assembled from the paper figures and
-source-faithful narration using an online neural voice. Install the small
-rendering dependencies and run:
+The checked-in video is reproducibly assembled from the paper figures,
+animated focus cues, typeset on-frame captions, and source-faithful narration
+using an online neural voice. Install the small rendering dependencies and run:
 
 ```bash
 python3 -m pip install edge-tts pillow imageio-ffmpeg
