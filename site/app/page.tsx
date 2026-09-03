@@ -177,7 +177,7 @@ export default function Home() {
                     <tr><th scope="row">Pure-position MLP</th><td>72.6</td><td>46.0</td><td>0.0</td><td>0.0</td></tr>
                     <tr className="highlight-row"><th scope="row">TFPO content gate</th><td>84.9</td><td>67.5</td><td>+12.3</td><td>+21.5</td></tr>
                     <tr className="panel-row"><th colSpan={5}>B. Method-independent gold-span intervention</th></tr>
-                    <tr className="subhead-row"><th>TFPO variant</th><th>Reasoning preserve ↑</th><th>Answer failure ↑</th><th>Joint geom. ↑</th><th>ΔJoint vs. MLP</th></tr>
+                    <tr className="subhead-row"><th>TFPO variant</th><th>Reasoning preserve ↑</th><th>Answer failure ↑</th><th>Joint geom. ↑</th><th><InlineMath>{'\\Delta \\mathrm{Joint}'}</InlineMath> vs. MLP</th></tr>
                     <tr><th scope="row">Pure-position linear route</th><td>73.1</td><td>59.1</td><td>65.7</td><td>—</td></tr>
                     <tr><th scope="row">Pure-position MLP route</th><td>76.5</td><td>63.8</td><td>69.9</td><td>0.0</td></tr>
                     <tr className="highlight-row"><th scope="row">Content-gated route</th><td>88.6</td><td>80.4</td><td>84.4</td><td>+14.5</td></tr>
