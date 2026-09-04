@@ -282,6 +282,9 @@ blockquote {
 .citation-box { max-width: 760px; }
 .citation-topline { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: var(--faint); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; }
 .citation-topline button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   height: auto;
   padding: 3px 0;
   border: 0;
@@ -292,6 +295,7 @@ blockquote {
   letter-spacing: .09em;
   text-transform: uppercase;
 }
+.citation-topline button svg { width: 14px; height: 14px; stroke-width: 1.7; }
 .citation-topline button:hover { color: var(--rust); text-decoration: underline; text-underline-offset: 3px; }
 .citation-topline button:focus-visible { border-radius: 2px; outline: 2px solid color-mix(in srgb, var(--teal) 45%, transparent); outline-offset: 3px; }
 .citation-box pre {

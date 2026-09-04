@@ -127,7 +127,7 @@ export default function Home() {
               <p>TFPO learns a small gate over response tokens and routes them between a <span className="ink-teal">preference objective for reasoning-sensitive regions</span> and a <span className="ink-rust">chosen-response likelihood anchor for answer-bearing regions</span>. No explicit reasoning or conclusion labels are required.</p>
             </div>
             <figure className="wide-figure method-figure crisp-figure">
-              <img className="paper-teaser" src="./assets/teaser-paper-exact.png" alt="The original TFPO method overview from the paper: sequence-level objective interference, learned token-wise routing, and stable alignment" />
+              <img className="paper-teaser" src="./assets/teaser-paper-single-line.png" alt="TFPO method overview from the paper, with its objective typeset on one line: sequence-level objective interference, learned token-wise routing, and stable alignment" />
               <figcaption><strong>Figure 2.</strong> Overview of TFPO. Instead of assigning one optimization signal to a functionally heterogeneous response, TFPO learns token-wise routing: preference gradients primarily shape reasoning-sensitive tokens, while likelihood anchoring stabilizes answer-bearing and conclusion-sensitive tokens. The displayed loss is schematic; the actual implementation uses the routed DPO sequence scores in Eqs. (2)-(4) and the full objective in Eq. (9).</figcaption>
             </figure>
             <div className="method-note text-column">

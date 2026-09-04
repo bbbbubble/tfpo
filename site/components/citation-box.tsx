@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 
 const bibtex = `@article{chen2026tfpo,
   title  = {TFPO: Token-Level Objective Fusion for Stable Preference Alignment},
@@ -20,6 +21,7 @@ export function CitationBox() {
       <div className="citation-topline">
         <span>BibTeX</span>
         <button type="button" onClick={copyCitation} aria-label="Copy BibTeX citation">
+          {copied ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
           {copied ? 'Copied' : 'Copy'}
         </button>
       </div>

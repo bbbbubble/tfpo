@@ -1,0 +1,27 @@
+% Website-only formula reflow. The submitted paper and all other artwork stay unchanged.
+% Compile with tectonic -X compile -Z search-path=<original-figure-directory>.
+% The original teaser_submission_background.pdf is the unchanged input artwork.
+\documentclass[tikz,border=0pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{newtxtext,newtxmath}
+\usetikzlibrary{calc}
+\definecolor{formulafill}{HTML}{EEF3FA}
+\definecolor{formulaline}{HTML}{8FA9D4}
+\definecolor{formulaink}{HTML}{26343F}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[anchor=south west, inner sep=0] (background) at (0,0)
+    {\includegraphics[width=17.68cm]{teaser_submission_background.pdf}};
+  \path[use as bounding box] (0,0) rectangle (17.68,8.90);
+  \filldraw[fill=formulafill, draw=formulaline, line width=0.35pt,
+    rounded corners=0.07cm] (5.88,1.46) rectangle (12.23,2.46);
+  \node[align=center, text=formulaink,
+    font=\fontsize{7.25}{8.2}\selectfont] at (9.055,1.96) {$\displaystyle
+    \mathcal{L}_{\mathrm{TFPO}}
+    = \mathcal{L}_{\mathrm{pref}}(S_\theta^R,S_{\mathrm{ref}}^R)
+    + \lambda\!\sum_{t\in y^+}\! g_t\,\ell_{\mathrm{nll},t}
+    + \mathcal{R}(g)$};
+\end{tikzpicture}
+\end{document}
