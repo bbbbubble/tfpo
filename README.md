@@ -10,7 +10,7 @@ Project page for **TFPO: Token-Level Objective Fusion for Stable Preference Alig
 
 ## Video overview
 
-[![Watch the TFPO video overview](site/public/assets/video-poster.jpg)](https://bbbbubble.github.io/tfpo/#video)
+https://github.com/user-attachments/assets/3fe7a38c-6d77-4ad4-864c-ce5b68fad259
 
 ## Repository layout
 
