@@ -1,29 +1,36 @@
 [
   {
-    "text": "The route is learned directly from preference pairs, without token-level supervision.",
+    "text": "The route is learned from preference pairs, without token labels.",
     "startMs": 50,
-    "endMs": 5244,
+    "endMs": 4149,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "3 regularizers keep the gate useful:",
-    "startMs": 5244,
-    "endMs": 8358,
+    "text": "Targeted ablations show what each regularizer controls.",
+    "startMs": 4149,
+    "endMs": 8221,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "a ratio target prevents branch collapse,",
-    "startMs": 8358,
-    "endMs": 11472,
+    "text": "Removing the ratio penalty raises budget violations from 1.6 to 36.1 percent.",
+    "startMs": 8221,
+    "endMs": 14793,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "total variation discourages noisy switching, and entropy prevents premature saturation.",
-    "startMs": 11472,
-    "endMs": 16662,
+    "text": "Removing total variation increases local switching.",
+    "startMs": 14793,
+    "endMs": 18414,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Removing entropy raises early saturation from 6.4 to 52.1 percent.",
+    "startMs": 18414,
+    "endMs": 24613,
     "timestampMs": null,
     "confidence": null
   }

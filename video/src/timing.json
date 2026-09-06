@@ -1,7 +1,7 @@
 {
   "fps": 30,
   "transitionFrames": 18,
-  "totalFrames": 5841,
+  "totalFrames": 6848,
   "scenes": [
     {
       "id": "premise",
@@ -23,45 +23,45 @@
     },
     {
       "id": "regularization",
-      "durationInFrames": 540,
-      "audioDurationSeconds": 16.73,
+      "durationInFrames": 779,
+      "audioDurationSeconds": 24.7,
       "startFrame": 1631
     },
     {
       "id": "capability",
-      "durationInFrames": 665,
-      "audioDurationSeconds": 20.9,
-      "startFrame": 2153
+      "durationInFrames": 842,
+      "audioDurationSeconds": 26.81,
+      "startFrame": 2392
     },
     {
       "id": "evidence",
       "durationInFrames": 747,
       "audioDurationSeconds": 23.62,
-      "startFrame": 2800
+      "startFrame": 3216
     },
     {
       "id": "families",
-      "durationInFrames": 585,
-      "audioDurationSeconds": 18.24,
-      "startFrame": 3529
+      "durationInFrames": 614,
+      "audioDurationSeconds": 19.2,
+      "startFrame": 3945
     },
     {
       "id": "multimodal",
-      "durationInFrames": 703,
-      "audioDurationSeconds": 22.18,
-      "startFrame": 4096
+      "durationInFrames": 810,
+      "audioDurationSeconds": 25.75,
+      "startFrame": 4541
     },
     {
       "id": "stability",
-      "durationInFrames": 629,
-      "audioDurationSeconds": 19.7,
-      "startFrame": 4781
+      "durationInFrames": 857,
+      "audioDurationSeconds": 27.29,
+      "startFrame": 5333
     },
     {
       "id": "closing",
-      "durationInFrames": 449,
-      "audioDurationSeconds": 13.7,
-      "startFrame": 5392
+      "durationInFrames": 676,
+      "audioDurationSeconds": 21.26,
+      "startFrame": 6172
     }
   ],
   "voice": "en-US-AvaMultilingualNeural",

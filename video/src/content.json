@@ -21,13 +21,13 @@
     "id": "regularization",
     "label": "Learning the route",
     "title": "No token labels are required.",
-    "narration": "The route is learned directly from preference pairs, without token-level supervision. Three regularizers keep the gate useful: a ratio target prevents branch collapse, total variation discourages noisy switching, and entropy prevents premature saturation."
+    "narration": "The route is learned from preference pairs, without token labels. Targeted ablations show what each regularizer controls. Removing the ratio penalty raises budget violations from one point six to thirty-six point one percent. Removing total variation increases local switching. Removing entropy raises early saturation from six point four to fifty-two point one percent."
   },
   {
     "id": "capability",
     "label": "Main evaluation",
     "title": "A consistent capability gain.",
-    "narration": "Under one frozen ten-benchmark protocol, TFPO averages eighty-eight point zero zero on post-trained Qwen three eight B. SimPO reaches eighty-three point zero eight, and the full-response SimPO plus NLL control reaches eighty-three point five two. TFPO is strongest on every benchmark in the main table."
+    "narration": "TFPO reaches the highest ten-benchmark average of eighty-eight point zero zero, versus eighty-three point zero eight for SimPO and eighty-three point five two for SimPO plus NLL. Results average three training seeds. BBH, GSM8K, and MATH use fixed two-hundred-prompt subsets with four samples per prompt. Code benchmarks use twenty samples per problem to estimate pass at one."
   },
   {
     "id": "evidence",
@@ -38,25 +38,25 @@
   {
     "id": "families",
     "label": "Cross-family alignment",
-    "title": "The pattern transfers across backbones.",
-    "narration": "The same routing recipe improves open-ended alignment across Qwen, Llama, and Mistral backbones. TFPO is strongest in every reported AlpacaEval and Arena-Hard column, suggesting that the gain is not tied to one tokenizer or one instruction-tuning recipe."
+    "title": "The gains replicate across backbones.",
+    "narration": "The same routing recipe is trained independently on Qwen, Llama, and Mistral backbones. TFPO is strongest in every reported AlpacaEval and Arena-Hard column, suggesting that the result is not tied to one tokenizer, instruction-tuning recipe, or model family."
   },
   {
     "id": "multimodal",
     "label": "Multimodal extension",
     "title": "Visual reasoning has fragile conclusions too.",
-    "narration": "With a Qwen three V L backbone, TFPO reaches the best multimodal average of seventy-one point zero three across ten benchmarks. The qualitative cases show three distinct instabilities: omitting a required option letter, selecting an unsupported answer from a map, and producing an unnecessarily long numerical conclusion."
+    "narration": "With a Qwen three V L backbone, TFPO reaches the best multimodal average of seventy-one point zero three. The first case illustrates answer formatting, not visual-counting accuracy: TFPO supplies an option letter. The map case illustrates visual grounding. In the numerical case, both TFPO and SimPO reach the correct answer, but TFPO is more concise."
   },
   {
     "id": "stability",
     "label": "Repeated sampling",
     "title": "Stable answers, diverse explanations.",
-    "narration": "Across four matched samples per prompt, TFPO raises answer agreement to ninety-two point six nine, majority accuracy to eighty-six point three two, and average accuracy to ninety point five seven. Explanation diversity also rises to sixty-two point three three rather than being traded away."
+    "narration": "Across four matched samples per prompt, TFPO reaches ninety-one point nine seven answer agreement, eighty-six point three three majority accuracy, and ninety point five six average accuracy. Explanation diversity reaches sixty-two point three three. Results average over BBH, GSM8K, and MATH, then three training seeds. Missing or invalid generations remain in the denominator."
   },
   {
     "id": "closing",
     "label": "Takeaway",
     "title": "Preference alignment is token-level credit assignment.",
-    "narration": "The central lesson is simple. It is not enough to ask which objectives should be mixed. We should also ask where each objective should act inside the response. TFPO turns that question into a learned, token-level route."
+    "narration": "TFPO reframes preference optimization as token-level credit assignment between preference shaping and likelihood anchoring. The results show improved performance and answer stability. Strict position controls, blind gold spans, and answer-position counterfactuals provide complementary evidence that the learned route tracks answer-bearing content."
   }
 ]

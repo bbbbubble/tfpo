@@ -1,36 +1,36 @@
 [
   {
-    "text": "The same routing recipe improves open-ended alignment across Qwen,",
+    "text": "The same routing recipe is trained independently on Qwen,",
     "startMs": 50,
-    "endMs": 4975,
+    "endMs": 4699,
     "timestampMs": null,
     "confidence": null
   },
   {
     "text": "Llama, and Mistral backbones.",
-    "startMs": 4975,
-    "endMs": 7164,
+    "startMs": 4699,
+    "endMs": 6765,
     "timestampMs": null,
     "confidence": null
   },
   {
     "text": "TFPO is strongest in every reported AlpacaEval and Arena-Hard column,",
-    "startMs": 7164,
-    "endMs": 11750,
+    "startMs": 6765,
+    "endMs": 11719,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "suggesting that the gain is not tied to one tokenizer",
-    "startMs": 11750,
-    "endMs": 16336,
+    "text": "suggesting that the result is not tied to one tokenizer,",
+    "startMs": 11719,
+    "endMs": 16672,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "or one instruction-tuning recipe.",
-    "startMs": 16336,
-    "endMs": 18170,
+    "text": "instruction-tuning recipe, or model family.",
+    "startMs": 16672,
+    "endMs": 19149,
     "timestampMs": null,
     "confidence": null
   }

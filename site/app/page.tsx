@@ -17,9 +17,9 @@ const capabilityRows = [
 const capabilityHeaders = ['Method', 'Avg.', 'BBH', 'GSM8K', 'HumanEval', 'IFEval', 'MMLU', 'RACE', 'C3', 'Gaokao', 'MATH', 'MBPP'];
 
 const stabilityRows = [
-  ['SimPO', '88.33', '80.69', '85.73', '59.01', '99.67'],
-  ['SimPO+NLL', '89.01', '81.69', '86.10', '59.72', '99.70'],
-  ['TFPO', '92.69', '86.32', '90.57', '62.33', '99.80'],
+  ['SimPO', '88.33', '80.67', '85.74', '59.01', '99.67'],
+  ['SimPO+NLL', '89.01', '81.72', '86.10', '59.72', '99.71'],
+  ['TFPO', '91.97', '86.33', '90.56', '62.33', '99.79'],
 ];
 
 const externalRows = [
@@ -80,9 +80,9 @@ export default function Home() {
             TFPO (Token-Fused Preference Optimization), which learns a lightweight gate that routes each response
             token between a <span className="ink-teal">DPO-style preference objective</span> and a <span className="ink-rust">chosen-response likelihood anchor</span>.
             The route is learned <em>without token-level supervision</em> and is stabilized by ratio, smoothness, and entropy
-            regularization. Under a matched ten-benchmark evaluation, TFPO averages <strong className="metric-emphasis">88.00</strong>, compared with 83.08 for
-            SimPO and 83.52 for the NLL-anchored SimPO+NLL control (three-seed means). It also improves external
-            alignment across Qwen, Llama, and Mistral backbones and is effective in multimodal preference tuning.
+            regularization. On the matched ten-benchmark suite, TFPO achieves <strong className="metric-emphasis">88.00</strong>, compared with 83.08 for
+            SimPO and 83.52 for the NLL-anchored SimPO+NLL baseline (three-seed means). It also improves external
+            alignment across Qwen, Llama, and Mistral backbones and multimodal performance.
             Under repeated sampling, TFPO raises answer agreement and majority-answer accuracy while preserving
             explanation diversity. On 1,000 gate- and model-blind annotated responses from five extractable-answer
             tasks, its content gate recovers answer-bearing spans with <strong className="metric-emphasis">0.85 AUPRC</strong>, versus 0.55 for the strongest
@@ -110,11 +110,11 @@ export default function Home() {
               <h2 id="motivation-title">Motivation</h2>
               <p className="lead-paragraph">LLM responses are not homogeneous token strings. Their spans serve <em>different functional roles</em>.</p>
               <p>Reasoning tokens can benefit from preference shaping: they determine whether an explanation is helpful, concise, and well justified. In contrast, final answer fields, option letters, short numeric answers, JSON keys, or code fragments often need likelihood anchoring to remain parseable and stable. When all tokens inherit the same sequence-level preference pressure, these roles can interfere.</p>
-              <blockquote>The core claim is not merely that mixing preference and likelihood is helpful. Our claim is sharper: <span className="text-underline">where each objective is applied matters.</span></blockquote>
+              <blockquote>The central design question is <span className="text-underline">where each objective should act within a response.</span></blockquote>
             </div>
             <figure className="wide-figure overview-figure motivation-overview">
               <img src="./assets/overview-hd.png" alt="Summary of TFPO results across text capability, cross-family alignment, and multimodal preference tuning" />
-              <figcaption><strong>Figure 1.</strong> The main empirical picture: capability, cross-family alignment, and multimodal preference tuning under matched evaluation protocols.</figcaption>
+              <figcaption><strong>Figure 1.</strong> Summary of the main empirical picture. TFPO achieves the best main ten-benchmark average among all compared methods, improves over SimPO on judge-based alignment across Qwen, Llama, and Mistral, and yields the best multimodal average among the compared methods.</figcaption>
             </figure>
           </div>
         </section>
@@ -128,12 +128,13 @@ export default function Home() {
             </div>
             <figure className="wide-figure method-figure crisp-figure">
               <img className="paper-teaser" src="./assets/teaser-paper-single-line.png" alt="TFPO method overview from the paper, with its objective typeset on one line: sequence-level objective interference, learned token-wise routing, and stable alignment" />
-              <figcaption><strong>Figure 2.</strong> Overview of TFPO. Instead of assigning one optimization signal to a functionally heterogeneous response, TFPO learns token-wise routing: preference gradients primarily shape reasoning-sensitive tokens, while likelihood anchoring stabilizes answer-bearing and conclusion-sensitive tokens. The displayed loss is schematic; the actual implementation uses the routed DPO sequence scores in Eqs. (2)-(4) and the full objective in Eq. (9).</figcaption>
+              <figcaption><strong>Figure 2.</strong> Overview of TFPO. A learned gate routes response tokens between preference shaping and likelihood anchoring, targeting reasoning-sensitive and answer-bearing regions, respectively. The displayed loss is schematic: routed DPO sequence scores are defined in Eqs. (2)–(4), and Eq. (9) gives the full objective.</figcaption>
             </figure>
             <div className="method-note text-column">
               <p>For each token, a single linear head reads the decoder hidden state through a stop-gradient path:</p>
               <div className="equation"><InlineMath>{'g_t=\\sigma\\!\\left(\\operatorname{sg}(\\mathbf{h}_t)\\mathbf{W}_g+b_g\\right)'}</InlineMath></div>
-              <p>A large <InlineMath>{'g_t'}</InlineMath> routes the token toward the conclusion/likelihood objective; a small value routes it toward the reasoning/preference objective. Ratio, total-variation, and entropy regularization prevent route collapse, noisy switching, and premature saturation.</p>
+              <p>This blocks gradients from gate predictions into the backbone while preserving gradients from the policy losses. A large <InlineMath>{'g_t'}</InlineMath> routes the token toward the conclusion/likelihood objective; a small value routes it toward the reasoning/preference objective.</p>
+              <p>Ratio regularization controls route mass, total variation discourages local switching, and entropy regularization discourages early saturation. The entropy weight decays during training.</p>
             </div>
           </div>
         </section>
@@ -143,7 +144,7 @@ export default function Home() {
           <div className="section-body">
             <div className="text-column">
               <h2 id="results-title">Main results</h2>
-              <p>Under one frozen, method-independent benchmark protocol, <strong className="metric-emphasis">TFPO is strongest on the ten-benchmark average and every constituent benchmark.</strong> The SimPO+NLL control separates token-level routing from the simpler effect of adding a full-response likelihood anchor.</p>
+              <p>Under the shared evaluation protocol, <strong className="metric-emphasis">TFPO achieves the highest ten-benchmark average.</strong> It exceeds SimPO by 4.92 points and the conventional full-response NLL-anchored SimPO+NLL baseline by 4.48 points.</p>
             </div>
             <figure className="table-figure">
               <div className="table-scroll" aria-label="Main capability results">
@@ -152,7 +153,7 @@ export default function Home() {
                   <tbody><ResultRows rows={capabilityRows} /></tbody>
                 </table>
               </div>
-              <figcaption><strong>Table 1.</strong> Matched capability evaluation on post-trained Qwen3-8B. Fine-tuned rows are three-seed means under one frozen, method-independent benchmark protocol.</figcaption>
+              <figcaption><strong>Table 2 in the paper.</strong> Matched capability evaluation on post-trained Qwen3-8B. Fine-tuned rows are 3-seed means under one frozen, method-independent protocol. BBH, GSM8K, and MATH use fixed 200-prompt held-out subsets with 4 samples per prompt (<InlineMath>{'\\mathrm{AvgAcc}@4'}</InlineMath>). HumanEval and MBPP use 20 samples per problem and the standard unbiased <InlineMath>{'\\mathrm{pass}@1'}</InlineMath> estimator; the remaining tasks use 1 sample per item. The average is computed before display rounding. MATH uses Hendrycks MATH, not MATH-500.</figcaption>
             </figure>
           </div>
         </section>
@@ -165,8 +166,8 @@ export default function Home() {
               <p>The routing claim is tested against strict position-only controls, blind answer-span annotations, answer-position counterfactuals, and method-independent token-removal interventions. The final gold-span evaluation contains <span className="text-underline">1,000 responses from five extractable-answer tasks</span>.</p>
             </div>
             <figure className="wide-figure evidence-figure">
-              <img src="./assets/routing-evidence.png" alt="Held-out TFPO token-routing examples, including a counterfactual with the answer placed first" />
-              <figcaption><strong>Figure 3.</strong> Held-out token-routing examples. Case B places the answer label first; semantic evaluation uses independently annotated gold spans rather than the descriptive sensitivity row.</figcaption>
+              <img src="./assets/routing-evidence.png" alt="Held-out TFPO token-routing examples, including an answer-first label in Case B" />
+              <figcaption><strong>Figure 3.</strong> Held-out token-routing examples. Sensitivity is the normalized absolute policy–reference log-probability difference <InlineMath>{'|\\Delta\\log p|'}</InlineMath>. The gate highlights a final span in Case A and the answer-first label in Case B. The sensitivity row is descriptive; semantic evaluation uses independently annotated gold spans.</figcaption>
             </figure>
             <figure className="table-figure evidence-table-figure">
               <div className="table-scroll" aria-label="Core routing evidence">
@@ -177,7 +178,7 @@ export default function Home() {
                     <tr><th scope="row">Pure-position MLP</th><td>72.6</td><td>46.0</td><td>0.0</td><td>0.0</td></tr>
                     <tr className="highlight-row"><th scope="row">TFPO content gate</th><td>84.9</td><td>67.5</td><td>+12.3</td><td>+21.5</td></tr>
                     <tr className="panel-row"><th colSpan={5}>B. Method-independent gold-span intervention</th></tr>
-                    <tr className="subhead-row"><th>TFPO variant</th><th>Reasoning preserve ↑</th><th>Answer failure ↑</th><th>Joint geom. ↑</th><th><InlineMath>{'\\Delta \\mathrm{Joint}'}</InlineMath> vs. MLP</th></tr>
+                    <tr className="subhead-row"><th>Routing variant</th><th>Reasoning preserve ↑</th><th>Answer failure ↑</th><th>Joint geom. ↑</th><th><InlineMath>{'\\Delta \\mathrm{Joint}'}</InlineMath> vs. MLP</th></tr>
                     <tr><th scope="row">Pure-position linear route</th><td>73.1</td><td>59.1</td><td>65.7</td><td>—</td></tr>
                     <tr><th scope="row">Pure-position MLP route</th><td>76.5</td><td>63.8</td><td>69.9</td><td>0.0</td></tr>
                     <tr className="highlight-row"><th scope="row">Content-gated route</th><td>88.6</td><td>80.4</td><td>84.4</td><td>+14.5</td></tr>
@@ -189,7 +190,15 @@ export default function Home() {
                   </tbody>
                 </table>
               </div>
-              <figcaption><strong>Table 2.</strong> Core routing evidence against strict position-only controls. Panels A and B use controlled removal tests; Panel C evaluates blind gold-span recovery.</figcaption>
+              <figcaption><strong>Table 4 in the paper.</strong> Three complementary routing evaluations against strict position-only controls. Among initially correct responses, RR-Preserve measures answer retention after removing low-score reasoning-route tokens; CR-Failure measures answer failure after removing high-score conclusion-route tokens. Panel B removes method-independent gold spans; Panel C evaluates blind gold-span recovery.</figcaption>
+            </figure>
+            <div className="text-column">
+              <h3>What each regularizer controls</h3>
+              <p>Aggregate capability alone does not reveal route-mass violations, excessive local switching, or premature saturation. The paper&apos;s targeted ablations measure these complementary properties while retaining the same one-token-per-branch safeguard.</p>
+            </div>
+            <figure className="wide-figure">
+              <img src="./assets/regularizer-diagnostics.png" alt="Regularizer-specific ablations: ratio-budget adherence, local routing smoothness, and entropy dynamics during training" />
+              <figcaption><strong>Figure 5 in the paper.</strong> Regularizer-specific diagnostics. Without <InlineMath>{'\\mathcal{L}_{\\mathrm{len}}'}</InlineMath>, budget violations rise from 1.6% to 36.1%. Without TV, transitions per 100 tokens rise from 3.1 to 15.8 and intra-span TV from 0.022 to 0.126. Without entropy regularization, early saturation rises from 6.4% to 52.1% at 10% training progress. Values follow the 3-seed protocol.</figcaption>
             </figure>
           </div>
         </section>
@@ -199,7 +208,7 @@ export default function Home() {
           <div className="section-body">
             <div className="text-column">
               <h2 id="generality-title">Across model families</h2>
-              <p>The same routing recipe improves open-ended alignment across three distinct backbones, suggesting that the gain is <em>not tied to one tokenizer, one instruction-tuning recipe, or one model family</em>.</p>
+              <p>The gains replicate when the same routing recipe is <span className="text-underline">trained independently on Qwen, Llama, and Mistral backbones</span>, suggesting that the result is not tied to one tokenizer, one instruction-tuning recipe, or one model family.</p>
             </div>
             <figure className="table-figure">
               <div className="table-scroll" aria-label="Cross-family external alignment results">
@@ -217,7 +226,7 @@ export default function Home() {
                   <tbody><ResultRows rows={externalRows} /></tbody>
                 </table>
               </div>
-              <figcaption><strong>Table 3.</strong> Cross-family external alignment. AlpacaEval reports length-controlled and raw win rate; Arena-Hard reports the official control-adjusted win rate.</figcaption>
+              <figcaption><strong>Table 3 in the paper.</strong> Cross-family external alignment. AlpacaEval reports length-controlled and raw win rate; Arena-Hard reports the official control-adjusted win rate.</figcaption>
             </figure>
           </div>
         </section>
@@ -239,7 +248,7 @@ export default function Home() {
                   <tbody><ResultRows rows={multimodalRows} /></tbody>
                 </table>
               </div>
-              <figcaption><strong>Table 4.</strong> Per-benchmark multimodal results for methods trained from Qwen3-VL-8B-Instruct. Scores use the paper&apos;s judge-based protocol.</figcaption>
+              <figcaption><strong>Table 16 in the paper.</strong> Per-benchmark multimodal results for methods trained from Qwen3-VL-8B-Instruct. Scores use the paper&apos;s judge-based protocol.</figcaption>
             </figure>
 
             <div className="case-study-list" aria-label="Qualitative multimodal examples">
@@ -251,7 +260,7 @@ export default function Home() {
                   <p><strong>Question.</strong> Max has 10 dice. Which one of the five solids can he build? The prompt asks for a final option letter.</p>
                   <p><strong className="ink-teal">TFPO.</strong> Counts the candidates, identifies compatible solids, and returns the required final option: <strong>A</strong>.</p>
                   <p><strong className="ink-rust">ORPO.</strong> Gives a semantically close description—“the fifth figure”—but omits the required option letter.</p>
-                  <p className="interpretation"><em>Interpretation.</em> The example separates visual reasoning from answer-field discipline: a near-correct description can still fail the required output format.</p>
+                  <p className="interpretation"><em>Interpretation.</em> This case concerns final-answer formatting, not visual-counting accuracy: TFPO supplies an explicit option letter, whereas ORPO gives an ordinal description.</p>
                 </div>
               </article>
 
@@ -279,7 +288,7 @@ export default function Home() {
                 </div>
               </article>
             </div>
-            <p className="case-caption"><strong>Figure 4.</strong> The paper&apos;s complete three-case qualitative narrative, reorganized for screen reading. The cases cover format drift, a visually unsupported option, and excessive verbosity.</p>
+            <p className="case-caption"><strong>Figures 6–8 in the paper.</strong> Three qualitative cases, reorganized for screen reading: answer formatting, visual grounding, and response concision.</p>
           </div>
         </section>
 
@@ -294,7 +303,7 @@ export default function Home() {
               <div className="table-scroll" aria-label="Repeated-sampling stability results">
                 <table className="paper-table"><thead><tr><th>Method</th><th>Agreement@4 ↑</th><th>MajorityAcc@4 ↑</th><th>AvgAcc@4 ↑</th><th>Div.@4 ↑</th><th>Valid ↑</th></tr></thead><tbody><ResultRows rows={stabilityRows} /></tbody></table>
               </div>
-              <figcaption><strong>Table 5.</strong> Repeated-sampling stability, macro-averaged over BBH, GSM8K, and MATH and then over three training seeds.</figcaption>
+              <figcaption><strong>Table 5 in the paper.</strong> Repeated-sampling stability on 200 held-out prompts per task, averaged first over BBH, GSM8K, and MATH and then over 3 training seeds. All methods use the same frozen answer canonicalizer; missing and invalid generations remain in the denominator. Agreement is the modal canonical-answer fraction; MajorityAcc scores the unique plurality answer against gold; AvgAcc averages per-generation correctness; diversity is measured after removing final-answer fields.</figcaption>
             </figure>
           </div>
         </section>

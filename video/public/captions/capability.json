@@ -1,22 +1,43 @@
 [
   {
-    "text": "Under one frozen 10-benchmark protocol, TFPO averages 88.00 on post-trained Qwen3-8B.",
+    "text": "TFPO reaches the highest 10-benchmark average of 88.00,",
     "startMs": 50,
-    "endMs": 7939,
+    "endMs": 5566,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "SimPO reaches 83.08, and the full-response SimPO plus NLL control reaches 83.52.",
-    "startMs": 7939,
-    "endMs": 16546,
+    "text": "versus 83.08 for SimPO and 83.52 for SimPO plus NLL.",
+    "startMs": 5566,
+    "endMs": 12461,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "TFPO is strongest on every benchmark in the main table.",
-    "startMs": 16546,
-    "endMs": 20824,
+    "text": "Results average 3 training seeds.",
+    "startMs": 12461,
+    "endMs": 15180,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "BBH, GSM8K, and MATH use fixed 200-prompt subsets with",
+    "startMs": 15180,
+    "endMs": 19917,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "4 samples per prompt.",
+    "startMs": 19917,
+    "endMs": 22023,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Code benchmarks use 20 samples per problem to estimate pass@1.",
+    "startMs": 22023,
+    "endMs": 26739,
     "timestampMs": null,
     "confidence": null
   }

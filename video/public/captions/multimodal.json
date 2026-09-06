@@ -1,36 +1,43 @@
 [
   {
-    "text": "With a Qwen3-VL backbone, TFPO reaches the best multimodal average of",
+    "text": "With a Qwen3-VL backbone, TFPO reaches the best multimodal average of 71.03.",
     "startMs": 50,
-    "endMs": 6846,
+    "endMs": 7628,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "71.03 across 10 benchmarks.",
-    "startMs": 6846,
-    "endMs": 9317,
+    "text": "The first case illustrates answer formatting,",
+    "startMs": 7628,
+    "endMs": 10748,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "The qualitative cases show 3 distinct instabilities:",
-    "startMs": 9317,
-    "endMs": 12759,
+    "text": "not visual-counting accuracy: TFPO supplies an option letter.",
+    "startMs": 10748,
+    "endMs": 14909,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "omitting a required option letter, selecting an unsupported answer from a map,",
-    "startMs": 12759,
-    "endMs": 18658,
+    "text": "The map case illustrates visual grounding.",
+    "startMs": 14909,
+    "endMs": 18002,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "and producing an unnecessarily long numerical conclusion.",
-    "startMs": 18658,
-    "endMs": 22100,
+    "text": "In the numerical case, both TFPO and SimPO reach the correct answer,",
+    "startMs": 18002,
+    "endMs": 23415,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "but TFPO is more concise.",
+    "startMs": 23415,
+    "endMs": 25670,
     "timestampMs": null,
     "confidence": null
   }

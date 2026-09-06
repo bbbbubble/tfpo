@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import json
+import argparse
 import math
 import os
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -42,9 +44,18 @@ CAPTION_REPLACEMENTS = (
     (r"\bzero point five five\b", "0.55"),
     (r"\bzero point zero two\b", "0.02"),
     (r"\bseventy-one point zero three\b", "71.03"),
-    (r"\bninety-two point six nine\b", "92.69"),
-    (r"\beighty-six point three two\b", "86.32"),
-    (r"\bninety point five seven\b", "90.57"),
+    (r"\bninety-one point nine seven\b", "91.97"),
+    (r"\beighty-six point three three\b", "86.33"),
+    (r"\bninety point five six\b", "90.56"),
+    (r"\bone point six\b", "1.6"),
+    (r"\bthirty-six point one\b", "36.1"),
+    (r"\bsix point four\b", "6.4"),
+    (r"\bfifty-two point one\b", "52.1"),
+    (r"\btwo-hundred-prompt\b", "200-prompt"),
+    (r"\bfour samples per prompt\b", "4 samples per prompt"),
+    (r"\btwenty samples per problem\b", "20 samples per problem"),
+    (r"\bthree training seeds\b", "3 training seeds"),
+    (r"\bpass at one\b", "pass@1"),
     (r"\bsixty-two point three three\b", "62.33"),
     (r"\bQwen three eight B\b", "Qwen3-8B"),
     (r"\bQwen three V L\b", "Qwen3-VL"),
@@ -149,7 +160,10 @@ def generate_scene_audio(scene: dict[str, str]) -> tuple[Path, list[dict[str, ob
     AUDIO_DIR.mkdir(parents=True, exist_ok=True)
     CAPTION_DIR.mkdir(parents=True, exist_ok=True)
     audio = AUDIO_DIR / f"{scene['id']}.mp3"
-    source_vtt = CAPTION_DIR / f"{scene['id']}.source.vtt"
+    stage = ROOT / 'build' / 'narration-staging'
+    stage.mkdir(parents=True, exist_ok=True)
+    staged_audio = stage / f"{scene['id']}.mp3"
+    source_vtt = stage / f"{scene['id']}.source.vtt"
     caption_json = CAPTION_DIR / f"{scene['id']}.json"
 
     command = [
@@ -163,7 +177,7 @@ def generate_scene_audio(scene: dict[str, str]) -> tuple[Path, list[dict[str, ob
         "--text",
         scene["narration"],
         "--write-media",
-        str(audio),
+        str(staged_audio),
         "--write-subtitles",
         str(source_vtt),
     ]
@@ -171,12 +185,18 @@ def generate_scene_audio(scene: dict[str, str]) -> tuple[Path, list[dict[str, ob
     environment["PYTHONPATH"] = str(EDGE_PACKAGES)
     subprocess.run(command, check=True, env=environment)
     captions = parse_vtt(source_vtt)
+    if not captions or not staged_audio.is_file() or staged_audio.stat().st_size == 0:
+        raise RuntimeError(f"Incomplete narration for {scene['id']}; existing published inputs preserved")
+    duration_seconds(staged_audio)
+    shutil.copyfile(staged_audio, audio)
     caption_json.write_text(json.dumps(captions, indent=2) + "\n", encoding="utf-8")
-    source_vtt.unlink()
     return audio, captions
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--scenes', nargs='+', help='Regenerate only these scene IDs, reusing other audio and captions.')
+    args = parser.parse_args()
     if str(EDGE_PACKAGES) not in sys.path:
         sys.path.insert(0, str(EDGE_PACKAGES))
     try:
@@ -185,13 +205,20 @@ def main() -> None:
         raise SystemExit("edge-tts dependencies are unavailable in build/video-python") from error
 
     scenes: list[dict[str, str]] = json.loads(CONTENT.read_text(encoding="utf-8"))
+    unknown = set(args.scenes or []) - {scene['id'] for scene in scenes}
+    if unknown:
+        raise SystemExit(f'Unknown scenes: {sorted(unknown)}')
     timing_scenes: list[dict[str, object]] = []
     full_vtt: list[str] = ["WEBVTT", ""]
     current_start_frames = 0
     cue_number = 1
 
     for scene in scenes:
-        audio, captions = generate_scene_audio(scene)
+        if args.scenes is None or scene['id'] in args.scenes:
+            audio, captions = generate_scene_audio(scene)
+        else:
+            audio = AUDIO_DIR / f"{scene['id']}.mp3"
+            captions = json.loads((CAPTION_DIR / f"{scene['id']}.json").read_text())
         audio_seconds = duration_seconds(audio)
         duration_frames = math.ceil((audio_seconds + TAIL_SECONDS) * FPS)
         start_ms = round(current_start_frames / FPS * 1000)

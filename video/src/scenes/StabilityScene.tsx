@@ -4,9 +4,9 @@ import { SceneShell } from '../components/SceneShell';
 import { colors, fonts } from '../theme';
 
 const metrics = [
-  ['Agreement@4', 92.69],
-  ['MajorityAcc@4', 86.32],
-  ['AvgAcc@4', 90.57],
+  ['Agreement@4', 91.97],
+  ['MajorityAcc@4', 86.33],
+  ['AvgAcc@4', 90.56],
   ['Explanation diversity', 62.33],
 ];
 

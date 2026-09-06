@@ -10,13 +10,14 @@ export const CapabilityScene: React.FC = () => <SceneShell id="capability" label
       <MetricBar label="TFPO" value={88} max={90} color={colors.rust} delay={18} />
       <MetricBar label="SimPO + NLL" value={83.52} max={90} color={colors.muted} delay={34} />
       <MetricBar label="SimPO" value={83.08} max={90} color={colors.muted} delay={50} />
-      <p style={{ margin: '12px 0 0', color: colors.muted, fontSize: 22 }}>Three-seed means · one frozen evaluation protocol</p>
+      <p style={{ margin: '12px 0 0', color: colors.muted, fontSize: 22 }}>3-seed means · one frozen evaluation protocol</p>
     </div>
     <div>
-      <p style={{ margin: '0 0 25px', color: colors.rust, fontFamily: fonts.mono, fontSize: 18, letterSpacing: '.08em', textTransform: 'uppercase' }}>Strongest on all ten</p>
+      <p style={{ margin: '0 0 25px', color: colors.rust, fontFamily: fonts.mono, fontSize: 18, letterSpacing: '.08em', textTransform: 'uppercase' }}>10-benchmark suite</p>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-        {tasks.map((task) => <span key={task} style={{ padding: '14px 18px', borderRadius: 10, background: colors.rustSoft, color: colors.rust, fontFamily: fonts.mono, fontSize: 19 }}>{task} <b style={{ float: 'right' }}>↑</b></span>)}
+        {tasks.map((task) => <span key={task} style={{ padding: '10px 18px', borderRadius: 10, background: colors.rustSoft, color: colors.rust, fontFamily: fonts.mono, fontSize: 19 }}>{task}</span>)}
       </div>
+      <p style={{ margin: '20px 0 0', color: colors.muted, fontSize: 20, lineHeight: 1.45 }}>BBH / GSM8K / MATH: 200 prompts × 4 samples<br />Code: 20 samples per problem · pass@1</p>
     </div>
   </div>
 </SceneShell>;

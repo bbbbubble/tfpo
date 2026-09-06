@@ -2,28 +2,42 @@
   {
     "text": "Across 4 matched samples per prompt,",
     "startMs": 50,
-    "endMs": 3721,
+    "endMs": 4264,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "TFPO raises answer agreement to 92.69,",
-    "startMs": 3721,
-    "endMs": 7392,
+    "text": "TFPO reaches 91.97 answer agreement, 86.33 majority accuracy,",
+    "startMs": 4264,
+    "endMs": 9883,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "majority accuracy to 86.32, and average accuracy to 90.57.",
-    "startMs": 7392,
-    "endMs": 12899,
+    "text": "and 90.56 average accuracy.",
+    "startMs": 9883,
+    "endMs": 12693,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "Explanation diversity also rises to 62.33 rather than being traded away.",
-    "startMs": 12899,
-    "endMs": 19652,
+    "text": "Explanation diversity reaches 62.33.",
+    "startMs": 12693,
+    "endMs": 16932,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Results average over BBH, GSM8K, and MATH, then 3 training seeds.",
+    "startMs": 16932,
+    "endMs": 23131,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "Missing or invalid generations remain in the denominator.",
+    "startMs": 23131,
+    "endMs": 27216,
     "timestampMs": null,
     "confidence": null
   }

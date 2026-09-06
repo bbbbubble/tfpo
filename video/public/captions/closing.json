@@ -1,29 +1,43 @@
 [
   {
-    "text": "The central lesson is simple.",
+    "text": "TFPO reframes preference optimization as token-level credit assignment between preference",
     "startMs": 50,
-    "endMs": 2010,
+    "endMs": 5491,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "It is not enough to ask which objectives should be mixed.",
-    "startMs": 2010,
-    "endMs": 5154,
+    "text": "shaping and likelihood anchoring.",
+    "startMs": 5491,
+    "endMs": 7667,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "We should also ask where each objective should act inside the response.",
-    "startMs": 5154,
-    "endMs": 9175,
+    "text": "The results show improved performance and answer stability.",
+    "startMs": 7667,
+    "endMs": 11224,
     "timestampMs": null,
     "confidence": null
   },
   {
-    "text": "TFPO turns that question into a learned, token-level route.",
-    "startMs": 9175,
-    "endMs": 13634,
+    "text": "Strict position controls, blind gold spans,",
+    "startMs": 11224,
+    "endMs": 14370,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "and answer-position counterfactuals provide complementary evidence that the learned",
+    "startMs": 14370,
+    "endMs": 19088,
+    "timestampMs": null,
+    "confidence": null
+  },
+  {
+    "text": "route tracks answer-bearing content.",
+    "startMs": 19088,
+    "endMs": 21185,
     "timestampMs": null,
     "confidence": null
   }

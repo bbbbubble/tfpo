@@ -12,7 +12,7 @@ const families = [
 export const FamiliesScene: React.FC = () => {
   const frame = useCurrentFrame();
   const progress = interpolate(frame, [35, 115], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  return <SceneShell id="families" label="Cross-family alignment" title="The pattern transfers across backbones.">
+  return <SceneShell id="families" label="Cross-family alignment" title="The gains replicate across backbones.">
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 30, alignItems: 'center', height: '100%' }}>
       {families.map((family, familyIndex) => <div key={family.name} style={{ minHeight: 420, padding: '34px 34px 30px', borderRadius: 24, background: colors.white }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}><Img src={staticFile(`assets/${family.image}`)} style={{ width: 52, height: 52, objectFit: 'contain', borderRadius: 10 }} /><strong style={{ fontFamily: fonts.serif, fontSize: 29 }}>{family.name}</strong></div>
@@ -27,7 +27,7 @@ export const FamiliesScene: React.FC = () => {
             </div>;
           })}
         </div>
-        <p style={{ margin: '30px 0 0', color: colors.faint, fontFamily: fonts.mono, fontSize: 15 }}>SimPO → TFPO · family {familyIndex + 1}</p>
+        <p style={{ margin: '30px 0 0', color: colors.faint, fontFamily: fonts.mono, fontSize: 15 }}>SimPO → TFPO · independently trained · {familyIndex + 1}</p>
       </div>)}
     </div>
   </SceneShell>;
