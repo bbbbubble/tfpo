@@ -79,13 +79,13 @@ export default function Home() {
             final answers, formatting fields, and code need not benefit from the same training signal. We propose
             TFPO (Token-Fused Preference Optimization), which learns a lightweight gate that routes each response
             token between a <span className="ink-teal">DPO-style preference objective</span> and a <span className="ink-rust">chosen-response likelihood anchor</span>.
-            The route is learned <em>without token-level supervision</em> and is stabilized by ratio, smoothness, and entropy
-            regularization. On the matched ten-benchmark suite, TFPO achieves <strong className="metric-emphasis">88.00</strong>, compared with 83.08 for
-            SimPO and 83.52 for the NLL-anchored SimPO+NLL baseline (three-seed means). It also improves external
+            Training uses <em>no token-level supervision</em> and includes ratio, smoothness, and entropy
+            regularization. On the matched ten-benchmark suite, TFPO scores <strong className="metric-emphasis">88.00</strong> versus 83.08 for
+            SimPO, the strongest baseline without NLL anchoring, and 83.52 for SimPO+NLL (three-seed means). It also improves external
             alignment across Qwen, Llama, and Mistral backbones and multimodal performance.
             Under repeated sampling, TFPO raises answer agreement and majority-answer accuracy while preserving
-            explanation diversity. On 1,000 gate- and model-blind annotated responses from five extractable-answer
-            tasks, its content gate recovers answer-bearing spans with <strong className="metric-emphasis">0.85 AUPRC</strong>, versus 0.55 for the strongest
+            explanation diversity. On 1,000 responses from five extractable-answer tasks,
+            annotated blind to gate values and model identity, its content gate recovers answer spans at <strong className="metric-emphasis">0.85 AUPRC</strong> versus 0.55 for the strongest
             strict position-only control. These results support <span className="text-underline">token-level objective routing</span> as a practical way to
             improve both preference alignment and answer stability.
           </p>
@@ -172,13 +172,13 @@ export default function Home() {
             <figure className="table-figure evidence-table-figure">
               <div className="table-scroll" aria-label="Core routing evidence">
                 <table className="paper-table">
-                  <thead><tr className="panel-row"><th colSpan={5}>A. Equal-removal-budget intervention (mean over 10–40% budgets)</th></tr><tr><th>Router</th><th>RR-Preserve ↑</th><th>CR-Failure ↑</th><th><InlineMath>{'\\Delta RR'}</InlineMath> vs. MLP</th><th><InlineMath>{'\\Delta CR'}</InlineMath> vs. MLP</th></tr></thead>
+                  <thead><tr className="panel-row"><th colSpan={5}>A. Equal-removal-budget intervention (mean over 10–40% budgets)</th></tr><tr><th>Router</th><th>RR-Preserve ↑</th><th>CR-Failure ↑</th><th><InlineMath>{'\\Delta RR'}</InlineMath> vs. MLP ↑</th><th><InlineMath>{'\\Delta CR'}</InlineMath> vs. MLP ↑</th></tr></thead>
                   <tbody>
                     <tr><th scope="row">Pure-position linear</th><td>68.9</td><td>41.2</td><td>—</td><td>—</td></tr>
                     <tr><th scope="row">Pure-position MLP</th><td>72.6</td><td>46.0</td><td>0.0</td><td>0.0</td></tr>
                     <tr className="highlight-row"><th scope="row">TFPO content gate</th><td>84.9</td><td>67.5</td><td>+12.3</td><td>+21.5</td></tr>
                     <tr className="panel-row"><th colSpan={5}>B. Method-independent gold-span intervention</th></tr>
-                    <tr className="subhead-row"><th>Routing variant</th><th>Reasoning preserve ↑</th><th>Answer failure ↑</th><th>Joint geom. ↑</th><th><InlineMath>{'\\Delta \\mathrm{Joint}'}</InlineMath> vs. MLP</th></tr>
+                    <tr className="subhead-row"><th>Routing variant</th><th>Reasoning preserve ↑</th><th>Answer failure ↑</th><th>Joint geom. ↑</th><th><InlineMath>{'\\Delta \\mathrm{Joint}'}</InlineMath> vs. MLP ↑</th></tr>
                     <tr><th scope="row">Pure-position linear route</th><td>73.1</td><td>59.1</td><td>65.7</td><td>—</td></tr>
                     <tr><th scope="row">Pure-position MLP route</th><td>76.5</td><td>63.8</td><td>69.9</td><td>0.0</td></tr>
                     <tr className="highlight-row"><th scope="row">Content-gated route</th><td>88.6</td><td>80.4</td><td>84.4</td><td>+14.5</td></tr>
@@ -288,7 +288,7 @@ export default function Home() {
                 </div>
               </article>
             </div>
-            <p className="case-caption"><strong>Figures 6–8 in the paper.</strong> Three qualitative cases, reorganized for screen reading: answer formatting, visual grounding, and response concision.</p>
+            <p className="case-caption"><strong>Figure 6 in the paper.</strong> Three qualitative cases, reorganized for screen reading: answer formatting, visual grounding, and response concision.</p>
           </div>
         </section>
 
